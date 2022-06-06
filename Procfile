@@ -1,1 +1,1 @@
-web: uvicorn shortener_app.main:app -p $8000
+web: uvicorn shortener_app.main:app
