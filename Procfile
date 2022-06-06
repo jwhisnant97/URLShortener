@@ -1,1 +1,1 @@
-web: uvicorn shortener_app.main:app --host 0.0.0.0
+web: uvicorn shortener_app.main:app --host localhost
