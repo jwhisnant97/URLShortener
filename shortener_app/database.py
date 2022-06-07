@@ -6,15 +6,14 @@ from sqlalchemy.orm import sessionmaker
 import psycopg2
 import os
 
-DATABASE_URL = os.environ['DATABASE_URL']
-if DATABASE_URL and DATABASE_URL.startswith("postgres/"):
-    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://")
 
-conn = psycopg2.connect(DATABASE_URL,sslmode='require')
+uri = os.getenv("DATABASE_URL")  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://")
 
-engine = create_engine(
-    DATABASE_URL
-)
+conn = psycopg2.connect(uri,sslmode='require')
+
+engine = create_engine(uri)
 SessionLocal = sessionmaker(
     autocommit = False, autoflush=False, bind=engine
 )
