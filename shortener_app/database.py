@@ -3,12 +3,15 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import psycopg2
+import os
 
+DATABASE_URL = os.environ['DATABASE.URL']
 
-from .config import get_settings
+conn = psycopg2.connect(DATABASE_URL,sslmode='require')
 
 engine = create_engine(
-    get_settings().db_url, connect_args={"check_same_thread": False}
+    DATABASE_URL
 )
 SessionLocal = sessionmaker(
     autocommit = False, autoflush=False, bind=engine
